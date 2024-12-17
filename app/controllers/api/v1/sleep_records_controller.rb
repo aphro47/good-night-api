@@ -4,6 +4,10 @@ module Api
       before_action :set_user
       before_action :set_sleep_record, only: [:clock_out]
 
+      # POST /api/v1/users/:id/sleep_records/clock_in
+      # Clock in a sleep record for a user
+      # @param [Integer] id User ID
+      # @return [Array<SleepRecord>] List of user's sleep records
       def clock_in
         @sleep_record = @user.sleep_records.build(clock_in_at: Time.current)
 
@@ -14,6 +18,11 @@ module Api
         end
       end
 
+      # POST /api/v1/users/:id/sleep_records/:sleep_record_id/clock_out
+      # Clock out a sleep record
+      # @param [Integer] id User ID
+      # @param [Integer] sleep_record_id Sleep record ID
+      # @return [SleepRecord] Updated sleep record
       def clock_out
         if @sleep_record.update(clock_out_at: Time.current)
           render json: @sleep_record, status: :ok
@@ -22,6 +31,10 @@ module Api
         end
       end
 
+      # GET /api/v1/users/:id/sleep_records/following
+      # Get sleep records of followed users from the last week
+      # @param [Integer] id User ID
+      # @return [Array<SleepRecord>] List of sleep records from followed users
       def following_records
         following_ids = @user.followed_user_ids
         

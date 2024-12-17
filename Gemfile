@@ -41,4 +41,9 @@ group :development, :test do
   gem "faker"
   gem "benchmark-ips"
   gem "ruby-prof"
+  gem "rspec-rails"
+  gem 'rswag-specs'
 end
+
+gem 'rswag-api'
+gem 'rswag-ui'

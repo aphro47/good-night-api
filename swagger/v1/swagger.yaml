@@ -1,0 +1,279 @@
+---
+openapi: 3.0.1
+info:
+  title: Good Night API
+  version: v1
+  description: API for tracking sleep patterns and managing user relationships
+  contact:
+    name: API Support
+    email: support@example.com
+paths:
+  "/api/v1/users/{id}/follow/{target_id}":
+    post:
+      summary: Follow a user
+      tags:
+      - Followings
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      - name: target_id
+        in: path
+        description: Target User ID to follow
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: successfully followed user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: user not found
+        '422':
+          description: unable to follow user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  "/api/v1/users/{id}/unfollow/{target_id}":
+    delete:
+      summary: Unfollow a user
+      tags:
+      - Followings
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      - name: target_id
+        in: path
+        description: Target User ID to unfollow
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: successfully unfollowed user
+        '404':
+          description: user not found
+  "/api/v1/users/{id}/sleep_records/clock_in":
+    post:
+      summary: Clock in a sleep record
+      tags:
+      - Sleep Records
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: sleep record created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    clock_in_at:
+                      type: string
+                      format: date-time
+                    clock_out_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    duration_minutes:
+                      type: integer
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - user_id
+                  - clock_in_at
+        '404':
+          description: user not found
+  "/api/v1/users/{id}/sleep_records/{sleep_record_id}/clock_out":
+    post:
+      summary: Clock out a sleep record
+      tags:
+      - Sleep Records
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      - name: sleep_record_id
+        in: path
+        description: Sleep Record ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: sleep record updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  clock_in_at:
+                    type: string
+                    format: date-time
+                  clock_out_at:
+                    type: string
+                    format: date-time
+                  duration_minutes:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - id
+                - user_id
+                - clock_in_at
+                - clock_out_at
+                - duration_minutes
+        '404':
+          description: user or sleep record not found
+  "/api/v1/users/{id}/sleep_records/following":
+    get:
+      summary: Get sleep records of followed users
+      tags:
+      - Sleep Records
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: sleep records found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    clock_in_at:
+                      type: string
+                      format: date-time
+                    clock_out_at:
+                      type: string
+                      format: date-time
+                    duration_minutes:
+                      type: integer
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                    user:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+        '404':
+          description: user not found
+servers:
+- url: "{protocol}://{defaultHost}"
+  variables:
+    protocol:
+      default: http
+    defaultHost:
+      default: localhost:3000
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+    SleepRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        clock_in_at:
+          type: string
+          format: date-time
+        clock_out_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_minutes:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - user_id
+      - clock_in_at
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+  securitySchemes: {}
