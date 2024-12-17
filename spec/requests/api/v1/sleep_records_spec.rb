@@ -74,31 +74,44 @@ RSpec.describe 'api/v1/sleep_records', type: :request do
       tags 'Sleep Records'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer, description: 'User ID'
+      parameter name: :page, in: :query, type: :integer, required: false, description: 'Page number (default: 1)'
+      parameter name: :per_page, in: :query, type: :integer, required: false, description: 'Items per page (default: 20)'
 
       response '200', 'sleep records found' do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   user_id: { type: :integer },
-                   clock_in_at: { type: :string, format: 'date-time' },
-                   clock_out_at: { type: :string, format: 'date-time' },
-                   duration_minutes: { type: :integer },
-                   created_at: { type: :string, format: 'date-time' },
-                   updated_at: { type: :string, format: 'date-time' },
-                   user: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       name: { type: :string }
-                     }
-                   }
-                 }
-               }
+        schema type: :object,
+          properties: {
+            data: {
+              type: :array,
+              items: {
+                type: :object,
+                properties: {
+                  id: { type: :integer },
+                  clock_in_at: { type: :string, format: 'date-time' },
+                  clock_out_at: { type: :string, format: 'date-time' },
+                  duration_minutes: { type: :integer },
+                  user: {
+                    type: :object,
+                    properties: {
+                      id: { type: :integer },
+                      name: { type: :string }
+                    }
+                  }
+                }
+              }
+            },
+            meta: {
+              type: :object,
+              properties: {
+                page: { type: :integer },
+                total_pages: { type: :integer },
+                total_count: { type: :integer },
+                next_page: { type: :integer, nullable: true },
+                prev_page: { type: :integer, nullable: true }
+              }
+            }
+          }
 
-        let(:user) { User.create!(name: 'Test User') }
-        let(:id) { user.id }
+        let(:id) { @user.id }
         run_test!
       end
 
