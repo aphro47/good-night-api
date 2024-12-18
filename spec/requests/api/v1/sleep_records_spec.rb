@@ -111,7 +111,19 @@ RSpec.describe 'api/v1/sleep_records', type: :request do
             }
           }
 
-        let(:id) { @user.id }
+        let(:user) { User.create!(name: 'Test User') }
+        let(:followed_user) { User.create!(name: 'Followed User') }
+        let(:id) { user.id }
+
+        before do
+          user.follow(followed_user)
+          followed_user.sleep_records.create!(
+            clock_in_at: 2.days.ago,
+            clock_out_at: 1.day.ago,
+            duration_minutes: 1440
+          )
+        end
+
         run_test!
       end
 

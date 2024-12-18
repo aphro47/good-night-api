@@ -8,6 +8,7 @@ module Followings
     def call
       validate_users!
       create_following
+      { message: 'Successfully followed the user' }
     end
 
     private

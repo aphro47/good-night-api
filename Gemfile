@@ -48,6 +48,7 @@ group :development, :test do
   gem "ruby-prof"
   gem "rspec-rails"
   gem 'rswag-specs'
+  gem 'database_cleaner-active_record'
 end
 
 gem 'rswag-api'

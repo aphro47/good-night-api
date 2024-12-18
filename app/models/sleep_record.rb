@@ -8,6 +8,7 @@ class SleepRecord < ApplicationRecord
   scope :ordered_by_created, -> { order(created_at: :desc) }
   scope :with_duration, -> { where.not(duration_minutes: nil) }
   scope :ordered_by_duration, -> { order(duration_minutes: :desc) }
+  scope :in_progress, -> { where(clock_out_at: nil) }
 
   before_save :calculate_duration
 

@@ -11,7 +11,7 @@ module Api
       # @return [Array<SleepRecord>] List of user's sleep records
       def clock_in
         sleep_record = SleepRecords::ClockInService.call(@user.id)
-        render json: sleep_record, status: :created
+        render json: [sleep_record], status: :created
       rescue Api::V1::Errors::BaseError => e
         render json: { error: e.message }, status: e.status
       end

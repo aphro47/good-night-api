@@ -6,7 +6,7 @@ module Api
       # @param [Integer] id User ID
       # @param [Integer] target_id Target user ID to follow
       # @return [Hash] Success message
-      def follow
+      def create
         following = Followings::FollowService.call(params[:id], params[:target_id])
         render json: following, status: :created
       rescue Api::V1::Errors::BaseError => e
@@ -18,7 +18,7 @@ module Api
       # @param [Integer] id User ID
       # @param [Integer] target_id Target user ID to unfollow
       # @return [nil] No content
-      def unfollow
+      def destroy
         Followings::UnfollowService.call(params[:id], params[:target_id])
         head :no_content
       rescue Api::V1::Errors::BaseError => e
