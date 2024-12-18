@@ -27,7 +27,8 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
     puts "\nTesting following_records performance..."
 
     # Profile memory and CPU
-    result = RubyProf.profile do
+    profile = RubyProf::Profile.new
+    result = profile.profile do
       10.times do
         get sleep_records_following_api_v1_user_path(@user)
         assert_response :success
@@ -53,7 +54,8 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
   def test_clock_in_performance
     puts "\nTesting clock_in performance..."
 
-    result = RubyProf.profile do
+    profile = RubyProf::Profile.new
+    result = profile.profile do
       10.times do
         post sleep_records_clock_in_api_v1_user_path(@user)
         assert_response :success
@@ -77,7 +79,8 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
   def test_follow_unfollow_performance
     puts "\nTesting follow/unfollow performance..."
 
-    result = RubyProf.profile do
+    profile = RubyProf::Profile.new
+    result = profile.profile do
       10.times do
         post follow_api_v1_user_path(@user, target_id: @target_user.id)
         assert_response :success
