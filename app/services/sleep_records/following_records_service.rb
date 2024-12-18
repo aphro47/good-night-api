@@ -9,7 +9,7 @@ module SleepRecords
     def call
       user = validate_user!(@user_id)
       followed_user_ids = fetch_followed_user_ids(user)
-      
+
       return { message: "No followed users found" } if followed_user_ids.empty?
 
       records = fetch_sleep_records(followed_user_ids)
@@ -35,8 +35,8 @@ module SleepRecords
     def paginate_records(records)
       items_per_page = @per_page.to_i
       items_per_page = 20 if items_per_page <= 0
-      items_per_page = [items_per_page, 100].min
-      current_page = [@page.to_i, 1].max
+      items_per_page = [ items_per_page, 100 ].min
+      current_page = [ @page.to_i, 1 ].max
 
       total_count = records.count
       total_pages = (total_count.to_f / items_per_page).ceil

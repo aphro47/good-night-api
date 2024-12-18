@@ -20,7 +20,7 @@ RSpec.describe 'api/v1/sleep_records', type: :request do
                    created_at: { type: :string, format: 'date-time' },
                    updated_at: { type: :string, format: 'date-time' }
                  },
-                 required: ['id', 'user_id', 'clock_in_at']
+                 required: [ 'id', 'user_id', 'clock_in_at' ]
                }
 
         let(:id) { User.create!(name: 'Test User').id }
@@ -52,7 +52,7 @@ RSpec.describe 'api/v1/sleep_records', type: :request do
                  created_at: { type: :string, format: 'date-time' },
                  updated_at: { type: :string, format: 'date-time' }
                },
-               required: ['id', 'user_id', 'clock_in_at', 'clock_out_at', 'duration_minutes']
+               required: [ 'id', 'user_id', 'clock_in_at', 'clock_out_at', 'duration_minutes' ]
 
         let(:user) { User.create!(name: 'Test User') }
         let(:id) { user.id }

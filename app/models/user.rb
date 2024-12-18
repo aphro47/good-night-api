@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   has_many :sleep_records, dependent: :destroy
-  
+
   # Following relationships
   has_many :followings, foreign_key: :follower_id, dependent: :destroy
   has_many :followed_users, through: :followings, source: :followed
-  
+
   # Follower relationships
-  has_many :reverse_followings, class_name: 'Following', foreign_key: :followed_id, dependent: :destroy
+  has_many :reverse_followings, class_name: "Following", foreign_key: :followed_id, dependent: :destroy
   has_many :followers, through: :reverse_followings, source: :follower
 
   validates :name, presence: true

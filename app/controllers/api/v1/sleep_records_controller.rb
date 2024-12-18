@@ -3,7 +3,7 @@ module Api
     class SleepRecordsController < BaseController
       include Pagy::Backend
       before_action :set_user
-      before_action :set_sleep_record, only: [:clock_out]
+      before_action :set_sleep_record, only: [ :clock_out ]
 
       # POST /api/v1/users/:id/sleep_records/clock_in
       # Clock in a sleep record for a user
@@ -11,7 +11,7 @@ module Api
       # @return [Array<SleepRecord>] List of user's sleep records
       def clock_in
         sleep_record = SleepRecords::ClockInService.call(@user.id)
-        render json: [sleep_record], status: :created
+        render json: [ sleep_record ], status: :created
       rescue Api::V1::Errors::BaseError => e
         render json: { error: e.message }, status: e.status
       end
@@ -59,7 +59,7 @@ module Api
       def set_sleep_record
         @sleep_record = @user.sleep_records.find(params[:sleep_record_id])
       rescue ActiveRecord::RecordNotFound
-        render json: { error: 'Sleep record not found' }, status: :not_found
+        render json: { error: "Sleep record not found" }, status: :not_found
       end
     end
   end

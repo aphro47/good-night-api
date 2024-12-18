@@ -41,7 +41,7 @@ RSpec.configure do |config|
               created_at: { type: :string, format: 'date-time' },
               updated_at: { type: :string, format: 'date-time' }
             },
-            required: ['id', 'name']
+            required: [ 'id', 'name' ]
           },
           SleepRecord: {
             type: :object,
@@ -54,7 +54,7 @@ RSpec.configure do |config|
               created_at: { type: :string, format: 'date-time' },
               updated_at: { type: :string, format: 'date-time' }
             },
-            required: ['id', 'user_id', 'clock_in_at']
+            required: [ 'id', 'user_id', 'clock_in_at' ]
           },
           Error: {
             type: :object,

@@ -8,10 +8,10 @@ class UserTest < ActiveSupport::TestCase
 
   test "should follow and unfollow a user" do
     assert_not @user1.following?(@user2)
-    
+
     @user1.follow(@user2)
     assert @user1.following?(@user2)
-    
+
     @user1.unfollow(@user2)
     assert_not @user1.following?(@user2)
   end

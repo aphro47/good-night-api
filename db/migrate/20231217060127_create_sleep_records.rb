@@ -8,9 +8,9 @@ class CreateSleepRecords < ActiveRecord::Migration[7.1]
 
       t.timestamps
 
-      t.index [:user_id, :created_at]
-      t.index [:clock_in_at]
-      t.index [:duration_minutes]
+      t.index [ :user_id, :created_at ]
+      t.index [ :clock_in_at ]
+      t.index [ :duration_minutes ]
     end
   end
 end

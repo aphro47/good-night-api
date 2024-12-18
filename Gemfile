@@ -30,9 +30,9 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 # Add these gems for optimization
-gem 'pagy' # For pagination
-gem 'active_model_serializers' # For JSON serialization
-gem 'redis-rails' # For caching
+gem "pagy" # For pagination
+gem "active_model_serializers" # For JSON serialization
+gem "redis-rails" # For caching
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -47,9 +47,9 @@ group :development, :test do
   gem "benchmark-ips"
   gem "ruby-prof"
   gem "rspec-rails"
-  gem 'rswag-specs'
-  gem 'database_cleaner-active_record'
+  gem "rswag-specs"
+  gem "database_cleaner-active_record"
 end
 
-gem 'rswag-api'
-gem 'rswag-ui'
+gem "rswag-api"
+gem "rswag-ui"

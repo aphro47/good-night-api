@@ -19,7 +19,7 @@ module Api
 
       test "should unfollow user" do
         @user.follow(@target_user)
-        
+
         assert_difference("Following.count", -1) do
           delete unfollow_api_v1_user_path(@user, target_id: @target_user.id)
           assert_response :no_content

@@ -11,13 +11,13 @@ module Api
       end
 
       class NotFoundError < BaseError
-        def initialize(message = 'Resource not found')
+        def initialize(message = "Resource not found")
           super(message, :not_found)
         end
       end
 
       class ValidationError < BaseError
-        def initialize(message = 'Validation failed')
+        def initialize(message = "Validation failed")
           super(message, :unprocessable_entity)
         end
       end

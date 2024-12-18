@@ -1,6 +1,6 @@
-require 'test_helper'
-require 'benchmark/ips'
-require 'ruby-prof'
+require "test_helper"
+require "benchmark/ips"
+require "ruby-prof"
 
 class ApiPerformanceTest < ActionDispatch::IntegrationTest
   def setup
@@ -13,19 +13,19 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
     # Create test users if no data exists
     user = User.create!(name: "Test User")
     target = User.create!(name: "Target User")
-    
+
     # Create some sleep records
     user.sleep_records.create!(
       clock_in_at: 1.day.ago,
       clock_out_at: 1.day.ago + 8.hours
     )
-    
+
     user
   end
 
   def test_following_records_performance
     puts "\nTesting following_records performance..."
-    
+
     # Profile memory and CPU
     result = RubyProf.profile do
       10.times do
@@ -52,7 +52,7 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
 
   def test_clock_in_performance
     puts "\nTesting clock_in performance..."
-    
+
     result = RubyProf.profile do
       10.times do
         post sleep_records_clock_in_api_v1_user_path(@user)
@@ -76,7 +76,7 @@ class ApiPerformanceTest < ActionDispatch::IntegrationTest
 
   def test_follow_unfollow_performance
     puts "\nTesting follow/unfollow performance..."
-    
+
     result = RubyProf.profile do
       10.times do
         post follow_api_v1_user_path(@user, target_id: @target_user.id)

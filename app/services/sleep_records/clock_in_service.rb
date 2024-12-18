@@ -6,9 +6,9 @@ module SleepRecords
 
     def call
       user = validate_user!(@user_id)
-      
+
       if user.sleep_records.in_progress.exists?
-        raise Api::V1::Errors::ValidationError.new('Already have an in-progress sleep record')
+        raise Api::V1::Errors::ValidationError.new("Already have an in-progress sleep record")
       end
 
       user.sleep_records.create!(

@@ -7,7 +7,7 @@ module Followings
 
     def call
       following = Following.find_by(follower_id: @follower_id, followed_id: @target_id)
-      raise Api::V1::Errors::NotFoundError.new('Not following this user') unless following
+      raise Api::V1::Errors::NotFoundError.new("Not following this user") unless following
 
       following.destroy
     end

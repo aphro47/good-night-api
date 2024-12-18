@@ -31,7 +31,7 @@ puts "\nCreated #{users.count} users"
 puts "\nCreating followings..."
 users.each_with_index do |user, i|
   follow_count = rand(40..60)
-  (users - [user]).sample(follow_count).each do |target_user|
+  (users - [ user ]).sample(follow_count).each do |target_user|
     user.follow(target_user)
   end
   print "." if i % 100 == 0
@@ -47,10 +47,10 @@ users.each_with_index do |user, i|
   record_count.times do
     # Random date in the last 30 days
     start_time = rand(1..30).days.ago
-    
+
     # Sleep duration between 4 and 12 hours
     duration_hours = rand(4..12)
-    
+
     SleepRecord.create!(
       user: user,
       clock_in_at: start_time,
